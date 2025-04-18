@@ -28,8 +28,8 @@ services:
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - OTEL_EXPORTER_OTLP_INSECURE=true
       - SENDGRID_API_KEY=
-      - SENDGRID_FROM_EMAIL= prabhdeepsinghgill1@gmail.custom
-      - SENDGRID_TO_EMAIL=prabhdeepsinghgill1can@gmail.com
+      - SENDGRID_FROM_EMAIL= 
+      - SENDGRID_TO_EMAIL=
 
     depends_on:
       - otel-collector
