@@ -8,8 +8,8 @@ export OTEL_EXPORTER_OTLP_INSECURE=true
 
 
 export SENDGRID_API_KEY=
-export SENDGRID_FROM_EMAIL=prabhdeepsinghgill1@gmail.com
-export SENDGRID_TO_EMAIL=prabhdeepsinghgill1@gmail.com
+export SENDGRID_FROM_EMAIL=
+export SENDGRID_TO_EMAIL=
 
 
 
