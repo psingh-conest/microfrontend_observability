@@ -16,3 +16,23 @@ services:
       - OTEL_METRICS_EXPORTER=otlp
       - OTEL_LOGS_EXPORTER=otlp
       - WP_MEMORY_LIMIT=512M
+    depends_on:
+      - otel-collector
+  custom-contact-form:
+    build: ../contact-form
+    ports:
+      - "8001:8001"
+    environment:
+      - OTEL_SERVICE_NAME=contact-form
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_EXPORTER_OTLP_INSECURE=true
+      - SENDGRID_API_KEY=
+      - SENDGRID_FROM_EMAIL= prabhdeepsinghgill1@gmail.custom
+      - SENDGRID_TO_EMAIL=prabhdeepsinghgill1can@gmail.com
+
+    depends_on:
+      - otel-collector
+
+networks:
+  observability:
