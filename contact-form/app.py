@@ -40,33 +40,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# @app.post("/email")
-# async def email(request: Request):
-#     with tracer.start_as_current_span("send_email") as span:
-#         try:
-#             messageContents = await request.json()
-#             span.set_attribute("email.subject",messageContents["subject"])
-#             span.set_attribute("email.from",messageContents["email"])
-
-#             message = Mail(
-#                 to_emails=os.environ.get('SENDGRID_TO_EMAIL'),
-#                 from_email=os.environ.get('SENDGRID_FROM_EMAIL'),
-#                 subject=messageContents["subject"],
-#                 html_content= f"{messageContents["message"]}<br />{messageContents["name"]}")
-#             message.reply_to = messageContents["email"]
-
-#             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-#             response = sg.send(message)
-#             span.set_attributes("email.status", "success")
-#             span.set_status(Status(StatusCode.OK))
-#             return response    
-#         except Exception as e:
-#             span.set_attributes("email.status", "error")
-#             span.set_attributes("email.error", str(e))
-#             span.set_status(Status(StatusCode.ERROR, str(e)))
-#             logger.error(f"Exception:: {e:args}",exc_info=True)
-#             return e
-
 @app.post("/email")
 async def email(request: Request):
     with tracer.start_as_current_span("send_email") as span:
@@ -84,6 +57,10 @@ async def email(request: Request):
             message.reply_to = messageContents["email"]
 
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            sg_key = os.environ.get('SENDGRID_API_KEY')
+
+            # Log first few characters to confirm it's the expected key (don't print full key!)
+            print("Using SendGrid API Key:", sg_key[:8] + "..." if sg_key else "Not set")
             response = sg.send(message)
 
             span.set_attribute("email.status", "success")
