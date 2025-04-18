@@ -59,7 +59,7 @@ async def email(request: Request):
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             sg_key = os.environ.get('SENDGRID_API_KEY')
 
-            # Log first few characters to confirm it's the expected key (don't print full key!)
+            # Log first few characters to confirm it's the expected key
             print("Using SendGrid API Key:", sg_key[:8] + "..." if sg_key else "Not set")
             response = sg.send(message)
 
